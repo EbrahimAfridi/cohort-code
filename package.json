@@ -1,0 +1,15 @@
+{
+  "name": "postgress-db",
+  "version": "1.0.0",
+  "description": "learning postgress db and sql",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ebrahim Afridi",
+  "license": "ISC",
+  "dependencies": {
+    "@types/pg": "^8.11.8",
+    "pg": "^8.12.0"
+  }
+}
