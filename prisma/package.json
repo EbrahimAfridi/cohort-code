@@ -1,15 +1,20 @@
 {
-  "name": "postgress-db",
+  "name": "prisma",
   "version": "1.0.0",
-  "description": "learning postgress db and sql",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
   "author": "Ebrahim Afridi",
   "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.5.2",
+    "prisma": "^5.19.0",
+    "ts-node": "^10.9.2"
+  },
   "dependencies": {
-    "@types/pg": "^8.11.8",
-    "pg": "^8.12.0"
+    "typescript": "^5.5.4"
   }
 }
