@@ -1,1 +1,95 @@
-node_modules
+# Node modules
+node_modules/
+*.log
+
+# Dependency directories
+jspm_packages/
+
+# Bower dependency directory
+bower_components/
+
+# Build directories
+dist/
+build/
+
+# Temporary files
+tmp/
+temp/
+
+# Output from npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Optional npm cache directory
+.npm
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# TypeScript files
+*.tsbuildinfo
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Parcel-bundler cache (if used)
+.cache/
+
+# Next.js
+.next/
+
+# Nuxt.js
+.nuxt/
+
+# Expo
+.expo/
+.expo-shared/
+
+# Svelte
+.svelte-kit/
+
+# Serverless directories
+.serverless/
+
+# Python virtual environments
+venv/
+__pycache__/
+
+# Public folder (optional)
+public/
+
+# Test coverage
+coverage/
+
+# Compiled JavaScript
+*.js
+*.jsx
+
+# TypeScript declaration files
+*.d.ts
+
+# React Native
+.expo/
+web-build/
+ios/
+android/
