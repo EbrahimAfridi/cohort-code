@@ -14,7 +14,14 @@ app.post("/api/v1/signup", async (c) => {
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
 
-    const body = 
+    const body = await c.req.json();
+
+    await prisma.user.create({
+        data: {
+            email: body.email,
+            password: body.password
+        },
+    })
 
     return c.text('Hello Hono!')
 })
