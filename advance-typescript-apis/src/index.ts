@@ -1,32 +1,48 @@
+// # 4 Readonly api
+
 interface User {
   name: string;
-  age: number;
   email: string;
-  // createdAt: Date;
+  password: string;
 }
 
-// # 3 Use case of Pick: When we reuse a Type or Interface and later decide to change something in the initial type
-// # 3 we will have to change it in the second Type too which is not a good practice.
-
-const user1 = {
-  name: "Ebu",
-  age: 12,
-  email: "ebu@gmail.com",
+const obj: Readonly<User> = {
+  name: "John",
+  email: "john@example.com",
+  password: "password",
 }
 
-type UpdateProps = Pick<User, "name" | "email" | "age">
-type PartialUpdateProps = Partial<UpdateProps>
+obj.name = "Jane";
+obj.email = "jane@example.com";
 
-function updateProfile(updateProps: PartialUpdateProps, user1: User): User {
-  return {
-    ...user1,
-    ...updateProps,
-  }
-}
-
-const updatedUser = updateProfile({name: "John", email: "john@example.com"}, user1);
-console.log(updatedUser);
-
+// interface User {
+//   name: string;
+//   age: number;
+//   email: string;
+//   // createdAt: Date;
+// }
+//
+// // # 3 Use case of Pick: When we reuse a Type or Interface and later decide to change something in the initial type
+// // # 3 we will have to change it in the second Type too which is not a good practice.
+//
+// const user1 = {
+//   name: "Ebu",
+//   age: 12,
+//   email: "ebu@gmail.com",
+// }
+//
+// type UpdateProps = Pick<User, "name" | "email" | "age">
+// type PartialUpdateProps = Partial<UpdateProps>
+//
+// function updateProfile(updateProps: PartialUpdateProps, user1: User): User {
+//   return {
+//     ...user1,
+//     ...updateProps,
+//   }
+// }
+//
+// const updatedUser = updateProfile({name: "John", email: "john@example.com"}, user1);
+// console.log(updatedUser);
 
 
 // # 2
