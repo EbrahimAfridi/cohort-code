@@ -13,21 +13,27 @@ type User = {
 // To solve this ugly syntax problem Records and Maps were introduced.
 // Record<key-type, old-type>
 
-type Users = Record<string, User>
+// type Users = Record<string, User>
+//
+// const users: Users = {
+//     "User1": {
+//         name:  "John Smith",
+//         email: "john@gmail.com",
+//     },
+//     "User2": {
+//         name: "John Smith",
+//         email: "john@gmail.com",
+//     }
+// }
+//
+// console.log(users)
 
-const users: Users = {
-    "User1": {
-        name: "John Smith",
-        email: "john@gmail.com",
-    },
-    "User2": {
-        name: "John Smith",
-        email: "john@gmail.com",
-    }
-}
-
-console.log(users)
-
+// # Map
+const user = new Map<string, User>()
+user.set("User1", {name: "Ebu", email: "abc@email.com"})
+user.set("User2", {name: "Man", email: "xyz@email.com"})
+console.log(user.get("User1"));
+console.log(user.get("User2"));
 
 // // # 4 Readonly api
 // interface User {
