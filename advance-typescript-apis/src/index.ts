@@ -1,19 +1,23 @@
-// # 4 Readonly api
+// # 5 Records and Maps
 
-interface User {
-  name: string;
-  email: string;
-  password: string;
-}
 
-const obj: Readonly<User> = {
-  name: "John",
-  email: "john@example.com",
-  password: "password",
-}
 
-obj.name = "Jane";
-obj.email = "jane@example.com";
+// // # 4 Readonly api
+// interface User {
+//   name: string;
+//   email: string;
+//   password: string;
+// }
+//
+// const obj: Readonly<User> = {
+//   name: "John",
+//   email: "john@example.com",
+//   password: "password",
+// }
+//
+// obj.name = "Jane";
+// obj.email = "jane@example.com";
+
 
 // interface User {
 //   name: string;
