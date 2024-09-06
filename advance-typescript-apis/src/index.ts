@@ -1,5 +1,32 @@
 // # 5 Records and Maps
+// Records let you give cleaner type to objects
 
+type User = {
+    name: string,
+    email: string,
+}
+
+// type Users = {
+//     [key: string]: User
+// }
+
+// To solve this ugly syntax problem Records and Maps were introduced.
+// Record<key-type, old-type>
+
+type Users = Record<string, User>
+
+const users: Users = {
+    "User1": {
+        name: "John Smith",
+        email: "john@gmail.com",
+    },
+    "User2": {
+        name: "John Smith",
+        email: "john@gmail.com",
+    }
+}
+
+console.log(users)
 
 
 // // # 4 Readonly api
