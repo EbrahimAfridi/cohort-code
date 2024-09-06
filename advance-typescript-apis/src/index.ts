@@ -1,10 +1,20 @@
+// # 6 Exclude
+// type EventType = "click" | "mouseover" | "mouseout";
+// type ExcludedEventType = Exclude<EventType, "click" | "mouseout">
+//
+// function handleMouse(event: ExcludedEventType) {
+//     console.log("handleMouse", event);
+// }
+
+// handleMouse("mouseout")
+
 // # 5 Records and Maps
 // Records let you give cleaner type to objects
 
-type User = {
-    name: string,
-    email: string,
-}
+// type User = {
+//     name: string,
+//     email: string,
+// }
 
 // type Users = {
 //     [key: string]: User
@@ -29,11 +39,11 @@ type User = {
 // console.log(users)
 
 // # Map
-const user = new Map<string, User>()
-user.set("User1", {name: "Ebu", email: "abc@email.com"})
-user.set("User2", {name: "Man", email: "xyz@email.com"})
-console.log(user.get("User1"));
-console.log(user.get("User2"));
+// const user = new Map<string, User>()
+// user.set("User1", {name: "Ebu", email: "abc@email.com"})
+// user.set("User2", {name: "Man", email: "xyz@email.com"})
+// console.log(user.get("User1"));
+// console.log(user.get("User2"));
 
 // // # 4 Readonly api
 // interface User {
