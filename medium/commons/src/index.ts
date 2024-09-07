@@ -1,9 +1,9 @@
 import {z} from "zod";
 
 export const signUpInput = z.object({
+    name: z.string().min(1).optional(),
     email: z.string().email(),
     password: z.string().min(6),
-    name: z.string().min(1).optional(),
 })
 
 export const signInInput = z.object({
@@ -17,9 +17,9 @@ export const createBlogInput = z.object({
 })
 
 export const updateBlogInput = z.object({
+    id: z.string(),
     title: z.string().min(1),
     content: z.string().min(6),
-    id: z.string(),
 })
 
 export type ZodSignUp = z.infer<typeof signUpInput>
