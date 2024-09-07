@@ -58,7 +58,7 @@ blogRouter.post("/", async (c) => {
 
 blogRouter.put("/", async (c) => {
   const body = await c.req.json();
-  const { success } = updateBlogInput.safeParse(body);
+  const { success } = updateBlogInput.safeParse(body); 
 
   if (!success) {
     return c.text("Inputs are not correct.", 411)
