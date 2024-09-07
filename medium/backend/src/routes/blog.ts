@@ -33,8 +33,23 @@ blogRouter.post("/", async (c) => {
   return c.json({ id: blog.id });
 });
 
-blogRouter.put("/", (c) => {
-  return c.text("Hello from Hono.");
+blogRouter.put("/", async (c) => {
+  const body = await c.req.json();
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const blog = await prisma.blog.update({
+    where: {
+      id: body.id,
+    },
+
+    data: {
+      title: body.title,
+      content: body.content,
+    },
+  });
+  return c.json({ id: blog.id });
 });
 
 blogRouter.get("/", (c) => {
