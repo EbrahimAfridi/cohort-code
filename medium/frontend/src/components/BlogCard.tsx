@@ -42,11 +42,12 @@ export default BlogCard;
 export function Avatar({author, size = 7}: { author: string, size?: number }) {
     return (
         <div
+            //size-${size}
             className={`relative inline-flex items-center justify-center size-${size} overflow-hidden bg-gray-100
             rounded-full dark:bg-gray-600`}
         >
             <span
-                className={`${size > 7 ? "text-lg" : "text-xs"} font-medium text-gray-600 dark:text-gray-300`}>
+                className={`${size > 7 ? "text-sm" : "text-xs"} font-medium text-gray-600 dark:text-gray-300`}>
                 {author && author.split(" ").map((w) => w.charAt(0)).join("")}
             </span>
         </div>

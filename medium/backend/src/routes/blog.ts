@@ -104,7 +104,8 @@ blogRouter.get("/bulk", async (c) => {
             },
         });
         if (blogs.length === 0) {
-            c.json(blogs);
+            // return c.json(blogs);
+            return c.text("No blogs found.", 411);
         }
         return c.json(blogs);
     } catch (error) {

@@ -55,6 +55,7 @@ export const useBlogs = () => {
                     headers: {Authorization: localStorage.getItem("token")}
                 })
                 const data = response.data;
+                console.log(data);
                 setBlogs(data);
             } catch (err) {
                 console.error("Error fetching bulk blogs.", err);

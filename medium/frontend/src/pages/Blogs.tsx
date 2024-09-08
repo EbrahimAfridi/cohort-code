@@ -17,7 +17,7 @@ export default function BlogsPage() {
         <section>
             <Appbar/>
             <div className={"flex flex-col flex-nowrap justify-center items-center w-full px-10"}>
-                {blogs.map((blog) => (
+                {blogs?.map((blog) => (
                     <BlogCard
                         id={blog.id}
                         key={blog.id}
