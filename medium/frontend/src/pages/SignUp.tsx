@@ -1,7 +1,15 @@
+import Auth from "../components/Auth.tsx";
+import Quote from "../components/Quote.tsx";
+
 export default function SignUpPage() {
     return (
-        <>
-        <h1>SignUp</h1>
-        </>
+        <div className="grid grid-cols-2">
+            <div>
+                <Auth type={"signup"}/>
+            </div>
+            <div className="invisible lg:visible">
+                <Quote/>
+            </div>
+        </div>
     )
 }
