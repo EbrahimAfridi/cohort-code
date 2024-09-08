@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {BACKEND_URL} from "../config.ts";
 import axios from "axios";
 
-interface Blog {
+export interface Blog {
     id: number;
     title: string;
     content: string;
@@ -13,6 +13,36 @@ interface Blog {
     thumbnail: string;
 }
 
+// Single Blog
+export const useBlog = ({id}: { id: string }) => {
+    const [loading, setLoading] = useState(false);
+    const [blog, setBlog] = useState<Blog>();
+
+    useEffect(() => {
+        const fetchBlog = async () => {
+            try {
+                setLoading(true);
+                const response = await axios.get(`${BACKEND_URL}/api/v1/blog/${id}`, {
+                    headers: {Authorization: localStorage.getItem("token")}
+                })
+                const data = response.data;
+                setBlog(data);
+            } catch (err) {
+                console.error("Error fetching single blog.", err);
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchBlog();
+    }, [id]);
+
+    return {
+        loading,
+        blog,
+    }
+}
+
+// All Blogs
 export const useBlogs = () => {
     const [loading, setLoading] = useState(false);
     const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -22,13 +52,12 @@ export const useBlogs = () => {
             try {
                 setLoading(true);
                 const response = await axios.get(`${BACKEND_URL}/api/v1/blog/bulk`, {
-                    headers: { "Authorization": localStorage.getItem("token") }
+                    headers: {Authorization: localStorage.getItem("token")}
                 })
                 const data = response.data;
-                console.log(data);
                 setBlogs(data);
             } catch (err) {
-                console.error(err);
+                console.error("Error fetching bulk blogs.", err);
             } finally {
                 setLoading(false)
             }
@@ -36,7 +65,6 @@ export const useBlogs = () => {
         fetchBlogs();
     }, []);
 
-    console.log(blogs)
     return {
         loading,
         blogs,
