@@ -14,12 +14,15 @@ export const signInInput = z.object({
 export const createBlogInput = z.object({
     title: z.string().min(1),
     content: z.string().min(6),
+    thumbnail: z.string().url(),
+    author: z.string().min(1),
 })
 
 export const updateBlogInput = z.object({
     id: z.string(),
     title: z.string().min(1),
     content: z.string().min(6),
+    thumbnail: z.string().url(),
 })
 
 export type ZodSignUp = z.infer<typeof signUpInput>

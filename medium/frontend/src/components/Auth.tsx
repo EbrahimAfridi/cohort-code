@@ -1,13 +1,33 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {ChangeEvent, useState} from "react";
 import {ZodSignUp} from "@ebrahimafridi/medium-common"
+import axios from "axios";
+import {BACKEND_URL} from "../config.ts";
 
 function Auth({type}: { type: "signin" | "signup" }) {
     const [postInputs, setPostsInputs] = useState<ZodSignUp>({
         name: "",
         email: "",
         password: "",
-    })
+    });
+    const navigate = useNavigate();
+
+    async function sendRequest() {
+        try {
+            // postInputs also contains name field but Zod will ignore name field for sign in route.
+            const response = await axios.post(
+                `${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`,
+                postInputs
+            );
+            const jwt = await response.data;
+            console.log(response);
+            localStorage.setItem("token", jwt);
+            navigate("/blogs");
+        } catch (e) {
+            alert("Error while signing up.");
+            console.error(e);
+        }
+    }
 
     return (
         <div className="h-screen flex flex-col justify-center gap-18">
@@ -59,6 +79,7 @@ function Auth({type}: { type: "signin" | "signup" }) {
                     }}
                 />
                 <button
+                    onClick={sendRequest}
                     type="button"
                     className="mt-8 w-72 md:w-96 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 rounded-lg
                     text-sm focus:ring-gray-300 font-medium px-5 py-2.5 me-2 mb-2 dark:bg-gray-800
