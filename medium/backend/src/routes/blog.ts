@@ -54,7 +54,7 @@ blogRouter.post("/", async (c) => {
         },
     });
 
-    return c.json({id: blog.id, body: body, blog: blog});
+    return c.json({id: blog.id});
 });
 
 blogRouter.put("/", async (c) => {
@@ -126,6 +126,7 @@ blogRouter.get("/:id", async (c) => {
                 id: id,
             },
             select: {
+                thumbnail: true,
                 id: true,
                 title: true,
                 content: true,
@@ -133,7 +134,7 @@ blogRouter.get("/:id", async (c) => {
                     select: {
                         name: true,
                     }
-                }
+                },
             }
         });
         return c.json(blog);

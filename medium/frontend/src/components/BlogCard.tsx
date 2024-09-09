@@ -14,7 +14,7 @@ function BlogCard({author, publishedDate, title, content, thumbnail, id}: BlogCa
         <div className={"border-b border-gray-300 pb-4 mt-4 w-full lg:w-7/12 cursor-pointer"}>
             <Link to={`/blog/${id}`}>
                 <div className={"flex items-center gap-2.5 mb-4"}>
-                    <Avatar author={author}/>
+                    <Avatar author={author} size={10}/>
                     <div className={"flex items-center gap-1"}>
                 <span className={"font-light text-sm text-black"}>
                     {author} &#8226;
@@ -42,7 +42,6 @@ export default BlogCard;
 export function Avatar({author, size = 7}: { author: string, size?: number }) {
     return (
         <div
-            //size-${size}
             className={`relative inline-flex items-center justify-center size-${size} overflow-hidden bg-gray-100
             rounded-full dark:bg-gray-600`}
         >

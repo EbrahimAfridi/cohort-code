@@ -11,6 +11,7 @@ function BlogTile({blog}: { blog: Blog }) {
                     <div className="text-5xl font-extrabold">{blog?.title}</div>
                     {/*<div className="text-black pt-2">{blog?.published}</div>*/}
                     <div className="text-black pt-2">{new Date().toISOString().split('T')[0]}</div>
+                    <img className={"size-60"} src={blog?.thumbnail} alt={blog?.title}/>
                     <div className="text-lg font-medium pt-4">{blog?.content}</div>
                 </div>
                 <div className={"col-span-3 col-end-12"}>

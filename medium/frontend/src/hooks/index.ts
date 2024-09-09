@@ -26,6 +26,7 @@ export const useBlog = ({id}: { id: string }) => {
                     headers: {Authorization: localStorage.getItem("token")}
                 })
                 const data = response.data;
+                console.log("FROM Blog", data);
                 setBlog(data);
             } catch (err) {
                 console.error("Error fetching single blog.", err);
