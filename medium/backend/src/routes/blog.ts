@@ -91,6 +91,7 @@ blogRouter.get("/bulk", async (c) => {
     try {
         const blogs = await prisma.blog.findMany({
             select: {
+                thumbnail: true,
                 published: true,
                 content: true,
                 title: true,
@@ -100,11 +101,9 @@ blogRouter.get("/bulk", async (c) => {
                         name: true,
                     },
                 },
-                thumbnail: true,
             },
         });
         if (blogs.length === 0) {
-            // return c.json(blogs);
             return c.text("No blogs found.", 411);
         }
         return c.json(blogs);
