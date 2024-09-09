@@ -10,71 +10,9 @@ interface BlogCardProps {
 }
 
 function BlogCard({author, publishedDate, title, content, thumbnail, id}: BlogCardProps) {
-    console.log("Thumbnail", thumbnail);
-    // Placeholder image URL
     const placeholderImage = "https://plus.unsplash.com/premium_photo-1668774097940-f36dfdaee149?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2Vob2xkZXJ8ZW58MHx8MHx8fDA%3D";
 
     return (
-        // <div className={"border-b border-gray-300 pb-4 mt-4 w-full lg:w-7/12 cursor-pointer"}>
-        //     <Link to={`/blog/${id}`}>
-        //         <div className={"flex gap-4"}>
-        //             {thumbnail && <img src={thumbnail} alt={title} />}
-        //             <div className={"flex items-center gap-2.5 mb-4"}>
-        //                 <Avatar author={author} size={10}/>
-        //                 <div className={"flex items-center gap-1"}>
-        //                 <span className={"font-light text-sm text-black"}>
-        //                     {author} &#8226;
-        //                 </span>
-        //                     <span className={"font-extralight text-sm text-zinc-500"}>{publishedDate}</span>
-        //                 </div>
-        //             </div>
-        //             <div className={"flex flex-col gap-2"}>
-        //                 <div className={"font-bold text-3xl"}>{title}</div>
-        //                 <div className={"text-zinc-600 text-sm  font-serif"}>
-        //                     {content.length > 100 ? content.slice(0, 100) + "..." : content}
-        //                 </div>
-        //                 <div className={"text-sm text-zinc-800 py-1.5 px-2.5 rounded-full bg-zinc-200 w-fit"}>
-        //                     {`${Math.ceil(content.length / 100)} min read`}
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     </Link>
-        // </div>
-
-        // Second
-        // <div className="border-b border-gray-300 pb-4 mt-4 w-full lg:w-7/12 cursor-pointer">
-        //     <Link to={`/blog/${id}`}>
-        //         <div className="flex flex-col lg:flex-row gap-4">
-        //             {/* Left side: Thumbnail or Placeholder */}
-        //             <div className="w-full lg:w-1/3">
-        //                 <img
-        //                     src={thumbnail || placeholderImage}
-        //                     alt={title}
-        //                     className="object-cover w-full h-auto sm:h-48 lg:h-[300px] xl:h-[400px] rounded"
-        //                 />
-        //             </div>
-        //
-        //             {/* Right side: Blog details */}
-        //             <div className="flex flex-col w-full lg:w-2/3 gap-2">
-        //                 <div className="flex items-center gap-2.5 mb-2">
-        //                     <Avatar author={author} size={10}/>
-        //                     <div className="flex items-center gap-1">
-        //                         <span className="font-light text-sm text-black">{author} &#8226;</span>
-        //                         <span className="font-extralight text-sm text-zinc-500">{publishedDate}</span>
-        //                     </div>
-        //                 </div>
-        //                 <div className="font-bold text-2xl lg:text-3xl">{title}</div>
-        //                 <div className="text-zinc-600 text-sm font-serif">
-        //                     {content.length > 100 ? content.slice(0, 100) + "..." : content}
-        //                 </div>
-        //                 <div className="text-sm text-zinc-800 py-1.5 px-2.5 rounded-full bg-zinc-200 w-fit">
-        //                     {`${Math.ceil(content.length / 100)} min read`}
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     </Link>
-        // </div>
-
         <div className="border-b border-gray-300 pb-4 mt-4 w-full lg:w-7/12 cursor-pointer">
             <Link to={`/blog/${id}`}>
                 <div className="flex flex-col lg:flex-row gap-4">
@@ -86,7 +24,6 @@ function BlogCard({author, publishedDate, title, content, thumbnail, id}: BlogCa
                             className="h-40 lg:h-44 object-cover w-full rounded"
                         />
                     </div>
-
                     {/* Right side: Content or Skeleton */}
                     <div className="flex flex-col w-full lg:w-2/3 gap-2">
                         <div className="flex items-center gap-2.5 mb-2">

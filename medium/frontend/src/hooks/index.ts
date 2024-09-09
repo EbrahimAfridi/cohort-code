@@ -25,8 +25,7 @@ export const useBlog = ({id}: { id: string }) => {
                 const response = await axios.get(`${BACKEND_URL}/api/v1/blog/${id}`, {
                     headers: {Authorization: localStorage.getItem("token")}
                 })
-                const data = response.data;
-                console.log("FROM Blog", data);
+                const data: Blog = response.data;
                 setBlog(data);
             } catch (err) {
                 console.error("Error fetching single blog.", err);
@@ -56,7 +55,6 @@ export const useBlogs = () => {
                     headers: {Authorization: localStorage.getItem("token")}
                 })
                 const data = response.data;
-                console.log(data);
                 setBlogs(data);
             } catch (err) {
                 console.error("Error fetching bulk blogs.", err);

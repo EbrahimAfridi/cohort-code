@@ -1,7 +1,7 @@
 import BlogCard from "../components/BlogCard.tsx";
 import Appbar from "../components/Appbar.tsx";
 import {useBlogs} from "../hooks";
-import BlogSkeleton from "../components/BlogSkeleton.tsx";
+import BlogsSkeleton from "../components/BlogsSkeleton.tsx";
 import {Link} from "react-router-dom";
 
 export default function BlogsPage() {
@@ -13,10 +13,10 @@ export default function BlogsPage() {
             <div className={"flex flex-col flex-nowrap justify-center items-center w-full px-10"}>
                 {loading ?
                     <>
-                        <BlogSkeleton/>
-                        <BlogSkeleton/>
-                        <BlogSkeleton/>
-                        <BlogSkeleton/>
+                        <BlogsSkeleton/>
+                        <BlogsSkeleton/>
+                        <BlogsSkeleton/>
+                        <BlogsSkeleton/>
                     </>
                     :
                     blogs.length === 0 ?

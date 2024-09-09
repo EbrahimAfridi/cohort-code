@@ -1,7 +1,7 @@
 import Appbar from "../components/Appbar.tsx";
 import axios from "axios";
 import {BACKEND_URL} from "../config.ts";
-import {useState} from "react";
+import {FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 function PublishPage() {
@@ -20,28 +20,32 @@ export function BlogEditor() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [thumbnail, setThumbnail] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    async function handleBlogSubmit(e: Event) {
+    async function handleBlogSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        console.log("title", title);
-        console.log("content", content);
-        console.log("thumbnail", thumbnail);
-        const response = await axios.post(`${BACKEND_URL}/api/v1/blog`, {
-                title,
-                content,
-                thumbnail,
-            }, {
-                headers: {
-                    Authorization: localStorage.getItem("token")
+        try {
+            setLoading(true);
+            const response = await axios.post(`${BACKEND_URL}/api/v1/blog`, {
+                    title,
+                    content,
+                    thumbnail,
+                }, {
+                    headers: {
+                        Authorization: localStorage.getItem("token")
+                    }
                 }
-            }
-        );
-
-        navigate(`/blog/${response.data.id}`);
+            );
+            setLoading(false);
+            navigate(`/blog/${response.data.id}`);
+        } catch (e) {
+            console.error(e)
+            throw new Error("Error while signing up.");
+        }
     }
 
     return (
-        <form onSubmit={(e) => handleBlogSubmit(e)} className={"max-w-screen-lg mx-auto mt-6"}>
+        <form onSubmit={handleBlogSubmit} className={"max-w-screen-lg mx-auto mt-6"}>
             <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900">
                 Title
             </label>
@@ -51,11 +55,13 @@ export function BlogEditor() {
                 id="title"
                 className="block mb-6 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Enter blog title here..."
+                required={true}
             />
             <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900">
                 Your message
             </label>
             <textarea
+                required={true}
                 onChange={(e) => setContent(e.target.value)}
                 id="message" rows={4} cols={32}
                 className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
@@ -74,6 +80,7 @@ export function BlogEditor() {
             <button
                 className={"mt-6 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-light rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none"}
                 type="submit"
+                disabled={loading}
             >
                 Publish Blog
             </button>
