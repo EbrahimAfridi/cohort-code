@@ -40,7 +40,7 @@ export function BlogEditor() {
             navigate(`/blog/${response.data.id}`);
         } catch (e) {
             console.error(e)
-            throw new Error("Error while signing up.");
+            throw new Error("Error while publishing.");
         }
     }
 

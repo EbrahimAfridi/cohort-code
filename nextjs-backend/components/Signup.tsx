@@ -34,7 +34,8 @@ export function Signup() {
                             />
                             <button
                                 onClick={async () => {
-                                    signup(username, password);
+                                    const res = await signup(username, password);
+                                    console.log(res);
                                     router.push("/");
                                 }}
                                 type="button"

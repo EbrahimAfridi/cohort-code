@@ -19,8 +19,7 @@ function Auth({type}: { type: "signin" | "signup" }) {
                 `${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`,
                 postInputs
             );
-            const jwt = response.data;
-            console.log(response);
+            const jwt = response.data.jwt;
             localStorage.setItem("token", jwt);
             navigate("/blogs");
         } catch (e) {
