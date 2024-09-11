@@ -51,8 +51,8 @@ export default BlogCard;
 
 export function Avatar({author, size = 7}: { author: string, size?: number }) {
     return (
-        <div
-            className={`relative inline-flex items-center justify-center size-${size} overflow-hidden bg-gray-100
+        <div //  size-${size}
+            className={`relative inline-flex items-center justify-center h-${size} w-${size} overflow-hidden bg-gray-100
             rounded-full dark:bg-gray-600`}
         >
             <span
