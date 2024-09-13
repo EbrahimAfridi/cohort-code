@@ -5,6 +5,7 @@ import SignInPage from "./pages/SignIn.tsx"
 import BlogPage from "./pages/Blog.tsx"
 import BlogsPage from "./pages/Blogs.tsx"
 import PublishPage from "./pages/Publish.tsx";
+import EditBlog from "./pages/EditBlog.tsx";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <Route path="/blogs" element={<BlogsPage />} />
                     <Route path="/blog/:id" element={<BlogPage />} />
                     <Route path="/publish" element={<PublishPage />} />
+                    <Route path="/blog/edit/:id" element={<EditBlog />} />
                 </Routes>
             </BrowserRouter>
         </main>

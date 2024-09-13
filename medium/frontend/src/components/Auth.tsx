@@ -14,12 +14,13 @@ function Auth({type}: { type: "signin" | "signup" }) {
 
     async function sendRequest() {
         try {
-            // postInputs also contains name field but Zod will ignore name field for sign in route.
             const response = await axios.post(
                 `${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`,
-                postInputs
+                postInputs  // postInputs also contains name field but Zod will ignore name field for sign in route.
             );
-            const jwt = response.data.jwt;
+            console.log(response)
+            const jwt = response.data; // NEW -> response.data is jwt token
+            // const jwt = response.data.jwt; OLD
             localStorage.setItem("token", jwt);
             navigate("/blogs");
         } catch (e) {

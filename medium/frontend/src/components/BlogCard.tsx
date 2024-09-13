@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
-import Edit from "./Edit.tsx";
-import {useState} from "react";
+import OptionsModal from "./OptionsModal.tsx";
+import {useEffect, useState} from "react";
 
 interface BlogCardProps {
     author: string;
@@ -8,13 +8,34 @@ interface BlogCardProps {
     publishedDate: string;
     content: string;
     thumbnail: string;
-    id: number;
+    id: string;
 }
 
 function BlogCard({author, publishedDate, title, content, thumbnail, id}: BlogCardProps) {
     const [isOpen, setIsOpen] = useState(false);
     const placeholderImage = "https://plus.unsplash.com/premium_photo-1668774097940-f36dfdaee149?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cGxhY2Vob2xkZXJ8ZW58MHx8MHx8fDA%3D";
-    console.log(isOpen);
+
+    const handleOutsideClick = (event: MouseEvent) => {
+        const target = event.target as HTMLElement; // Cast event.target to HTMLElement
+        if (!target.closest(".options-modal")) {
+            setIsOpen(false);
+        }
+    };
+
+    // Add and remove click event listener
+    useEffect(() => {
+        if (isOpen) {
+            document.addEventListener("click", handleOutsideClick);
+        } else {
+            document.removeEventListener("click", handleOutsideClick);
+        }
+
+        // cleanup function
+        return () => {
+            document.removeEventListener("click", handleOutsideClick);
+        };
+    }, [isOpen]);
+
     return (
         <div className="border-b border-gray-300 pb-4 mt-4 w-full lg:w-7/12 cursor-pointer">
             <div className="flex flex-col lg:flex-row gap-4">
@@ -36,7 +57,9 @@ function BlogCard({author, publishedDate, title, content, thumbnail, id}: BlogCa
                             <span className="font-light text-sm text-black">{author} &#8226;</span>
                             <span className="font-extralight text-sm text-zinc-500">{publishedDate}</span>
                         </div>
-                        <div onClick={() => setIsOpen((prev) => !prev)} className={"relative"}>✏️ {isOpen && <Edit/>}</div>
+                        <div onClick={() => setIsOpen((prev) => !prev)} className={"relative options-modal"}>
+                            ✏️ {isOpen && <OptionsModal id={id}/>}
+                        </div>
                     </div>
                     <Link to={`/blog/${id}`}>
                         <div className="font-bold text-2xl lg:text-3xl mb-1">{title}</div>
