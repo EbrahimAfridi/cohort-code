@@ -3,6 +3,7 @@ import axios from "axios";
 import {BACKEND_URL} from "../config.ts";
 import {FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import LoadingButton from "../ui/loading-button.tsx";
 
 function PublishPage() {
     return (
@@ -26,6 +27,7 @@ export function BlogEditor() {
         e.preventDefault();
         try {
             setLoading(true);
+            console.log("Click")
             const response = await axios.post(`${BACKEND_URL}/api/v1/blog`, {
                     title,
                     content,
@@ -36,11 +38,11 @@ export function BlogEditor() {
                     }
                 }
             );
-            setLoading(false);
             navigate(`/blog/${response.data.id}`);
         } catch (e) {
-            console.error(e)
-            throw new Error("Error while publishing.");
+            throw new Error("Error while publishing blog post");
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -82,7 +84,7 @@ export function BlogEditor() {
                 type="submit"
                 disabled={loading}
             >
-                Publish Blog
+                {loading ? <LoadingButton/> : "Publish Blog"}
             </button>
         </form>
     )
