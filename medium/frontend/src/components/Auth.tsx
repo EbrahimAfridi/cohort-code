@@ -18,7 +18,6 @@ function Auth({type}: { type: "signin" | "signup" }) {
                 `${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`,
                 postInputs  // postInputs also contains name field but Zod will ignore name field for sign in route.
             );
-            console.log(response)
             const jwt = response.data; // NEW -> response.data is jwt token
             // const jwt = response.data.jwt; OLD
             localStorage.setItem("token", jwt);

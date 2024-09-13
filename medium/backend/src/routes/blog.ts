@@ -16,17 +16,18 @@ export const blogRouter = new Hono<{
 
 // Middleware
 blogRouter.use("/*", async (c, next) => {
-    const authHeader = c.req.header("authorization") || ""
+    const authHeader = c.req.header("authorization") || "";
+
     try {
-        const user = await verify(authHeader, c.env.JWT_SECRET_KEY)
+        const user = await verify(authHeader, c.env.JWT_SECRET_KEY);
         if (user) {
-            c.set("userId", user.id as string)
-            await next()
+            c.set("userId", user.id as string);
+            await next();
         } else {
-            return c.text("You are not logged in.", 403)
+            return c.text("You are not logged in.", 403);
         }
     } catch (e) {
-        return c.text("You are not logged in.", 403)
+        return c.text("You are not logged in.", 403);
     }
 
 })
@@ -37,7 +38,7 @@ blogRouter.post("/", async (c) => {
     const {success} = createBlogInput.safeParse(body);
 
     if (!success) {
-        return c.text("Inputs are not correct.", 411)
+        return c.text("Inputs are not correct.", 411);
     }
 
     const authorId = c.get("userId");
@@ -57,12 +58,15 @@ blogRouter.post("/", async (c) => {
     return c.json({id: blog.id});
 });
 
-blogRouter.put("/", async (c) => {
+blogRouter.put("/edit/:id", async (c) => {
     const body = await c.req.json();
+    console.log("body", body);
+    const {id} = c.req.param();
+    console.log(c.req.param());
     const {success} = updateBlogInput.safeParse(body);
 
     if (!success) {
-        return c.text("Inputs are not correct.", 411)
+        return c.text("Inputs are not correct.", 411);
     }
 
     const prisma = new PrismaClient({
@@ -71,7 +75,7 @@ blogRouter.put("/", async (c) => {
 
     const blog = await prisma.blog.update({
         where: {
-            id: body.id,
+            id: id,
         },
         data: {
             title: body.title,

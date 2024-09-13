@@ -16,18 +16,15 @@ export function Form({id}: { id: string }) {
     useEffect(() => {
         if (blog) {
             setBlogData(blog);
-            console.log(blogData)
         }
     }, [blog]);
 
     async function handleBlogSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        setLoading2(true);
         try {
-            setLoading2(true);
             console.log("Click")
-            const response = await axios.put(`${BACKEND_URL}/api/v1/blog/edit/${id}`, {
-                    blogData
-                }, {
+            const response = await axios.put(`${BACKEND_URL}/api/v1/blog/edit/${id}`, blogData, {
                     headers: {
                         Authorization: localStorage.getItem("token")
                     }
@@ -42,7 +39,7 @@ export function Form({id}: { id: string }) {
     }
 
     if (loading) {
-        return <BlogSkeleton />;
+        return <BlogSkeleton/>;
     }
 
     return (
@@ -53,7 +50,7 @@ export function Form({id}: { id: string }) {
             <input
                 onChange={(e) => setBlogData((prev) => prev ? {...prev, title: e.target.value} : prev)}
                 type="text"
-                value={blog?.title}
+                value={blog?.title ?? ""}
                 name="title"
                 className="block mb-6 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Enter blog title here..."
@@ -63,7 +60,7 @@ export function Form({id}: { id: string }) {
                 Your message
             </label>
             <textarea
-                value={blogData?.content}
+                value={blogData?.content ?? ""}
                 required={true}
                 name="content"
                 onChange={(e) => setBlogData((prev) => prev ? {...prev, content: e.target.value} : prev)}
@@ -75,20 +72,23 @@ export function Form({id}: { id: string }) {
                 Blog Cover Image URL
             </label>
             <input
-                value={blogData?.thumbnail}
+                value={blogData?.thumbnail ?? ""}
                 type="url"
                 name="thumbnail"
-                onChange={(e) => setBlogData((prev) => prev ? {...prev, content: e.target.value} : prev)}
+                onChange={(e) => setBlogData((prev) => prev ? {...prev, thumbnail: e.target.value} : prev)}
                 className="block mb-6 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Enter blog title here..."
             />
-            <button
-                className={"mt-6 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-light rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none"}
-                type="submit"
-                disabled={loading2}
-            >
-                {loading2 ? <LoadingButton/> : "Publish Blog"}
-            </button>
+            {loading2 ? <LoadingButton/> :
+                <button
+                    className={"mt-6 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 " +
+                        "font-light rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-none"
+                    }
+                    type="submit"
+                    disabled={loading2}
+                >
+                    Publish Blog
+                </button>}
         </form>
     )
 }
