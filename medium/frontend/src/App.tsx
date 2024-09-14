@@ -10,7 +10,7 @@ import EditBlog from "./pages/EditBlog.tsx";
 function App() {
     return (
         // TODO: Remove classname from main tag.className={"bg-gray-800 h-screen"}
-        <main>
+        <main className={"bg-zinc-800 h-screen text-white"}>
             <BrowserRouter>
                 <Routes>
                     <Route path="/signup" element={<SignUpPage />} />

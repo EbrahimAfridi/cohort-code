@@ -39,7 +39,7 @@ export function Form({id}: { id: string }) {
     }
 
     if (loading) {
-        return <BlogSkeleton/>;
+        return <section className={"h-screen p-4 sm:mt-32 flex justify-center"}><BlogSkeleton/></section>;
     }
 
     return (
