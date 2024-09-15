@@ -10,7 +10,7 @@ import EditBlog from "./pages/EditBlog.tsx";
 function App() {
     return (
         // TODO: Remove classname from main tag.className={"bg-gray-800 h-screen"}
-        <main className={"bg-zinc-800 h-screen text-white"}>
+        <main>
             <BrowserRouter>
                 <Routes>
                     <Route path="/signup" element={<SignUpPage />} />
@@ -19,6 +19,7 @@ function App() {
                     <Route path="/blog/:id" element={<BlogPage />} />
                     <Route path="/publish" element={<PublishPage />} />
                     <Route path="/blog/edit/:id" element={<EditBlog />} />
+                    <Route path="/blog/delete/:id" element={<div>Deleting...</div>} />
                 </Routes>
             </BrowserRouter>
         </main>

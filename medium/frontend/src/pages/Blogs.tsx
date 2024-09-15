@@ -5,13 +5,14 @@ import BlogsSkeleton from "../components/BlogsSkeleton.tsx";
 import {Link} from "react-router-dom";
 
 export default function BlogsPage() {
-    const {loading, blogs} = useBlogs();
+    const {loading, blogs, loadingForDelete} = useBlogs();
+    console.log(blogs)
 
     return (
         <section>
             <Appbar/>
             <div className={"flex flex-col flex-nowrap justify-center items-center w-full px-10"}>
-                {loading ?
+                {(loading || loadingForDelete) ?
                     <>
                         <BlogsSkeleton/>
                         <BlogsSkeleton/>

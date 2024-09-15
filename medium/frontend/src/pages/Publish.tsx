@@ -4,6 +4,7 @@ import {BACKEND_URL} from "../config.ts";
 import {FormEvent, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import LoadingButton from "../ui/loading-button.tsx";
+import {createBlogInput} from "@ebrahimafridi/medium-common";
 
 function PublishPage() {
     return (
@@ -27,12 +28,16 @@ export function BlogEditor() {
         e.preventDefault();
         try {
             setLoading(true);
+            const body = { title, content, thumbnail };
+            const {success} = createBlogInput.safeParse(body);
+
             console.log("Click")
-            const response = await axios.post(`${BACKEND_URL}/api/v1/blog`, {
-                    title,
-                    content,
-                    thumbnail,
-                }, {
+            if (!success) {
+                alert("Body doesn't follow schema.");
+                return;
+            }
+
+            const response = await axios.post(`${BACKEND_URL}/api/v1/blog`, body, {
                     headers: {
                         Authorization: localStorage.getItem("token")
                     }

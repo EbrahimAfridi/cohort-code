@@ -124,7 +124,7 @@ blogRouter.get("/:id", async (c) => {
     }).$extends(withAccelerate());
 
     try {
-        const blog = await prisma.blog.findFirst({
+        const blog = await prisma.blog.findUnique({
             where: {
                 id: id,
             },
@@ -145,3 +145,55 @@ blogRouter.get("/:id", async (c) => {
         return c.json({message: "Error while fetching blog"}, 400);
     }
 });
+
+blogRouter.delete("/delete/:id", async (c) => {
+    console.log("Delete blog route hit");
+    const blogId = c.req.param("id");
+    console.log("Received blogId in backend:", blogId);  // Add this for debugging
+    const loggedInUserId = c.get("userId");
+    console.log("loggedInUserId", loggedInUserId);
+
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+
+    try {
+        // Find the blog to delete and the author id of that blog.
+        const blog = await prisma.blog.findFirst({
+            where: {
+                id: blogId,
+            },
+            select: {
+                authorId: true,
+            }
+        });
+
+        if (!blog?.authorId) {
+            return c.text("Blog not found.", 404);
+        }
+
+        // Check if the logged-in user is an admin
+        const loggedInUser = await prisma.user.findUnique({
+            where: {id: loggedInUserId},
+            select: {
+                isAdmin: true,
+            },
+        });
+
+        if (loggedInUserId !== blog.authorId && !loggedInUser?.isAdmin) {
+            return c.text("You are not authorized to perform delete on this blog.", 411);
+        }
+
+        await prisma.blog.delete({
+            where: {
+                id: blogId,
+            }
+        });
+
+        return c.text("Blog deleted successfully.", 200);
+    } catch
+        (error) {
+        return c.json({message: "Error while deleting blog"}, 400);
+    }
+})
+;

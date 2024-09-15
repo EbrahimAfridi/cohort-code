@@ -45,28 +45,52 @@ export const useBlog = ({id}: { id: string }) => {
 // All Blogs
 export const useBlogs = () => {
     const [loading, setLoading] = useState(false);
+    const [loadingForDelete, setLoadingForDelete] = useState(false);
     const [blogs, setBlogs] = useState<Blog[]>([]);
 
-    useEffect(() => {
-        const fetchBlogs = async () => {
-            try {
-                setLoading(true);
-                const response = await axios.get(`${BACKEND_URL}/api/v1/blog/bulk`, {
-                    headers: {Authorization: localStorage.getItem("token")}
-                })
-                const data = response.data;
-                setBlogs(data);
-            } catch (err) {
-                console.error("Error fetching bulk blogs.", err);
-            } finally {
-                setLoading(false)
-            }
+    const fetchBlogs = async () => {
+        try {
+            setLoading(true);
+            const response = await axios.get(`${BACKEND_URL}/api/v1/blog/bulk`, {
+                headers: {Authorization: localStorage.getItem("token")}
+            })
+            const data = response.data;
+            setBlogs(data);
+        } catch (err) {
+            console.error("Error fetching bulk blogs.", err);
+        } finally {
+            setLoading(false)
         }
+    }
+
+    async function handleDelete(id: string) {
+        console.log("Blog ID to delete:", id);
+        setLoadingForDelete(true);
+        try {
+            console.log("DELETE CLICKED");
+            await axios.delete(`${BACKEND_URL}/api/v1/blog/delete/${id}`, {
+                    headers: {
+                        Authorization: localStorage.getItem("token")
+                    }
+                }
+            );
+            await fetchBlogs();
+        } catch (error) {
+            console.error(error);
+            alert("Error while deleting blog post");
+        } finally {
+            setLoadingForDelete(false);
+        }
+    }
+
+    useEffect(() => {
         fetchBlogs();
     }, []);
 
     return {
         loading,
         blogs,
+        handleDelete,
+        loadingForDelete
     }
 }

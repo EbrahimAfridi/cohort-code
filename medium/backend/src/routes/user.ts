@@ -18,7 +18,7 @@ userRouter.post("/signup", async (c) => {
   if (!success) {
     return c.text("Inputs are not correct.", 411)
   }
-
+  console.log(c.env.DATABASE_URL)
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
@@ -43,6 +43,7 @@ userRouter.post("/signup", async (c) => {
 
 userRouter.post("/signin", async (c) => {
   const body = await c.req.json();
+  console.log(body)
   const { success } = signInInput.safeParse(body);
 
   if (!success) {
@@ -68,8 +69,8 @@ userRouter.post("/signin", async (c) => {
     const jwt = await sign({ id: user.id }, c.env.JWT_SECRET_KEY);
 
     return c.text(jwt, 200);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
-    return c.text("Invalid", 411);
+    return c.text(`Invalid ${error.message}`, 411);
   }
 });

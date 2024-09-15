@@ -16,7 +16,12 @@ function Auth({type}: { type: "signin" | "signup" }) {
         try {
             const response = await axios.post(
                 `${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`,
-                postInputs  // postInputs also contains name field but Zod will ignore name field for sign in route.
+                postInputs, // postInputs also contains name field but Zod will ignore name field for sign in route.
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
             );
             const jwt = response.data; // NEW -> response.data is jwt token
             // const jwt = response.data.jwt; OLD
@@ -46,6 +51,7 @@ function Auth({type}: { type: "signin" | "signup" }) {
             </div>
             <div className={"w-full flex flex-col justify-center items-center -mt-18"}>
                 {type === "signup" && <LabeledInput
+                    htmlFor={"user_name"}
                     label={"Name"}
                     placeholder={"Ebrahim Afridi"}
                     onChange={(e) => {
@@ -56,6 +62,7 @@ function Auth({type}: { type: "signin" | "signup" }) {
                     }}
                 />}
                 <LabeledInput
+                    htmlFor={"email"}
                     inputType={"email"}
                     label={"Email"}
                     placeholder={"afridiebrahimck@gmail.com"}
@@ -67,6 +74,7 @@ function Auth({type}: { type: "signin" | "signup" }) {
                     }}
                 />
                 <LabeledInput
+                    htmlFor={"password"}
                     inputType={"password"}
                     label={"Password"}
                     placeholder={"Password"}
@@ -94,19 +102,20 @@ function Auth({type}: { type: "signin" | "signup" }) {
 export default Auth;
 
 interface LabelInputTypes {
+    htmlFor?: string;
     inputType?: string;
     label: string;
     placeholder: string;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function LabeledInput({inputType = "text", label, placeholder, onChange}: LabelInputTypes) {
+function LabeledInput({inputType = "text", label, placeholder, onChange, htmlFor}: LabelInputTypes) {
     return <div className={"w-72 md:w-96"}>
-        <label htmlFor="first-name" className="block mt-4 mb-1.5 text-sm font-medium text-black">
+        <label htmlFor={htmlFor} className="block mt-4 mb-1.5 text-sm font-medium text-black">
             {label}
         </label>
         <input
-            type={inputType} id="first-name" onChange={onChange} placeholder={placeholder} required
+            type={inputType} id={htmlFor} onChange={onChange} placeholder={placeholder} required
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
             focus:border-blue-500 block w-full p-2.5"
         />
